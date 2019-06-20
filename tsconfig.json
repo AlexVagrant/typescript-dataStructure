@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "target": "es2015",
+    "module": "commonjs",
+    "sourceMap": true,
+    "outDir": "./compilation",
+    "strict": true,
+    "declaration": true,
+    "strictPropertyInitialization": false,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "noFallthroughCasesInSwitch": true,
+    "sourceRoot": "./",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+  },
+  "types": [ "node" ]
+}
