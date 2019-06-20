@@ -1,20 +1,17 @@
-class HashChains {
+
+class HashLine {
 
   private table: any[];
-
+  private value: any[];
   constructor(num: number) {
     this.table = new Array(num);
-  }
-
-  public buildChains(): void {
-    for (let i = 0; i < this.table.length; i++) {
-      this.table[i] = new Array();
-    }
+    this.value = [];
   }
 
   public simpleHash(data: string): number {
     const H = 31;
     let total = 0;
+
 
     for (let i = 0; i < data.length; i++) {
       total += H * data.charCodeAt(i);
@@ -29,54 +26,52 @@ class HashChains {
 
   public put(key: string) {
 
-    const pos = this.simpleHash(key);
+    let pos = this.simpleHash(key);
 
-    let index = 0;
-
-    if (this.table[pos][index] == undefined) {
-      this.table[pos][index] = key;
+    if (this.table[pos] == undefined) {
+      this.table[pos] = key;
+      this.value[pos] = key;
     } else {
-      while (this.table[pos][index] != undefined) {
-        ++index;
+      while (this.table[pos] != undefined) {
+        ++pos;
       }
-      this.table[pos][index] = key;
+      this.table[pos] = key;
+      this.value[pos] = key;
     }
   }
 
   public getKey(key: string): number | undefined {
-    let index = 0;
     let pos = this.simpleHash(key);
-    if (this.table[pos][index] = key) {
-      return this.table[pos][index];
-    } else {
-      while (this.table[pos][index] != key) {
-        ++index;
+    if (pos > 0) {
+      for (let i = 0; this.table[pos] != undefined; i++) {
+        if (this.table[pos] === key) {
+          return this.value[pos];
+        }
       }
-      return this.table[pos][index];
     }
   }
   public showDistro() {
     for (const key in this.table) {
-      this.table[key].length > 0 && console.log('key: ' + key + ' value: ' + this.table[key]);
+      this.table[key] && console.log('key: ' + key + ' value: ' + this.value[key]);
     }
   }
 }
 
-const hChains = new HashChains(137);
+const hLine = new HashLine(137);
 
-hChains.buildChains();
 
 var someNames = ["David", "Jennifer", "Donnie", "Raymond",
   "Cynthia", "Mike", "Clayton", "Danny", "Jonathan"];
 
 for (const v of someNames) {
-  hChains.put(v);
+  hLine.put(v);
 }
 
 
-hChains.showDistro();
+hLine.showDistro();
 
-// key: 25 value: Raymond,Clayton
+// key: 25 value: Raymond
+// key: 26 value: Clayton
 // key: 34 value: Mike
 // key: 44 value: Jonathan
 // key: 58 value: David
@@ -85,4 +80,4 @@ hChains.showDistro();
 // key: 123 value: Donnie
 // key: 126 value: Cynthia
 
-console.log(hChains.getKey('Jennifer'));
+console.log(hLine.getKey('Jennifer'));
