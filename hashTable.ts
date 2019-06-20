@@ -28,6 +28,7 @@ class HashTable {
   public get(data: string): void {
     const key = this.simpleHash(data);
     console.log(this.table[key]);
+
   }
 
   public showDistro(): void {
