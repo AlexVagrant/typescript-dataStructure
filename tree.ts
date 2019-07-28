@@ -1,29 +1,30 @@
-class TreeNode<T> {
-  public data: T;
-  public right: TreeNode<T>| null;
-  public left: TreeNode<T>| null;
-  constructor(data: T, left: TreeNode<T> | null, right: TreeNode<T> | null) {
+class TreeNode {
+  public data: any;
+  public right: TreeNode;
+  public left: TreeNode;
+  constructor(data: any, left?: TreeNode, right?: TreeNode) {
     this.data = data;
     this.left = left;
     this.right = right;
   }
 
-  public show(): T {
+  public show(): TreeNode {
     return this.data;
   }
+
 }
 
-class BST<T> {
+export class BST {
 
-  private root: TreeNode<T> | null;
+  public root: TreeNode;
 
-  constructor() {
-    this.root = null;
+  constructor(data) {
+    this.root = new TreeNode(data);
   }
 
-  public insert(data: T): void {
-    const n = new TreeNode(data, null, null);
-    if (this.root === null) {
+  public insert(data: any): void {
+    const n = new TreeNode(data);
+    if (this.root === undefined) {
       this.root = n;
     } else {
       let current = this.root;
@@ -31,12 +32,14 @@ class BST<T> {
       while (true) {
         parent = current;
         if (data < current.data) {
-          if (current.left === null) {
+          current = current.left;
+          if (current == null) {
             parent.left = n;
-            break;
+            break; 
           }
         } else {
-          if (current.right === null) {
+          current = current.right;
+          if (current == null) {
             parent.right = n;
             break;
           }
@@ -44,8 +47,12 @@ class BST<T> {
       }
     }
   }
+
+  public inOrder(node: TreeNode) {
+    if (node != null) {
+      this.inOrder(node.left);
+      console.log(node.show());
+      this.inOrder(node.right);
+    }
+  }
 }
-
-const bst = new BST();
-bst.insert('1');
-
